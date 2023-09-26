@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Working with S3
+Parameters:
+  S3BucketName:
+    Type: String
+    Description: "S3 bucket to create."
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9_-]*"
+
+Resources:
+  SampleS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join ["-", [!Join ["-",[!Ref S3BucketName, !Select [4, !Split ["-", !Select [2, !Split ["/", !Ref AWS::StackId]]]]]], !Ref AWS::Region]]
